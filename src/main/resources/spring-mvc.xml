@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+		
+		<!-- 扫描包 只扫描Controller层-->
+		<context:component-scan base-package="com.atguigu.environment.component.*" use-default-filters="false">
+			<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		</context:component-scan>
+		
+		<!-- annotation-driven:默认创建了多个对象：RequestMappingHandlerMapping，RequestMappingHandlerAdapter
+		也就提供对json格式支持
+		 -->
+		<mvc:annotation-driven/> <!-- 代替RequestMappingHandlerMapping,RequestMappingHandlerAdapter -->
+		<mvc:default-servlet-handler/>
+		
+		<!-- 配置sprigmvc视图解析器：解析逻辑试图 
+			 后台返回逻辑试图：index
+			视图解析器解析出真正物理视图：前缀+逻辑试图+后缀====/WEB-INF/jsp/index.jsp
+		-->
+		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" value="/WEB-INF/"></property>
+			<property name="suffix" value=".jsp"></property>		
+		</bean>
+		<!-- 文件上传解析器 -->
+		<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="maxUploadSize" value="102400000000"></property>
+		</bean> -->
+		<!-- 配置对文件上传的支持 -->
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="defaultEncoding" value="UTF-8"/>
+		</bean>
+		
+		<!-- path：浏览器请求的URL地址 -->
+		<!-- view-name：目标逻辑视图名称/“拼前后缀那玩意儿” -->
+		<mvc:view-controller path="/manager/admin/toMainUI" view-name="manager/admin_main"/>
+		
+		<!-- 配置简单的异常映射 -->
+		<!-- <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+			<property name="exceptionMappings">
+				<props>
+					将异常类型映射到一个视图
+					<prop key="com.atguigu.survey.exception.UserNameExitsException">guest/user_regist</prop>
+					<prop key="com.atguigu.survey.exception.NoUserExitsException">guest/user_login</prop>
+					<prop key="com.atguigu.survey.exception.UserNoLoginException">guest/user_login</prop>
+					<prop key="com.atguigu.survey.exception.SaveSurveyFileImgException">guest/survey_create</prop>
+					<prop key="com.atguigu.survey.exception.SaveFileTypeInvalidException">guest/survey_create</prop>
+					<prop key="com.atguigu.survey.exception.EditSurveyFileImgException">guest/survey_edit</prop>
+					<prop key="com.atguigu.survey.exception.EditFileTypeInvalidException">guest/survey_edit</prop>
+					<prop key="com.atguigu.survey.exception.RemoveSurveyException">error</prop>
+					<prop key="com.atguigu.survey.exception.RemoveBagException">error</prop>
+					<prop key="com.atguigu.survey.exception.BagNullException">error</prop>
+					<prop key="com.atguigu.survey.exception.QuestionNullException">error</prop>
+					<prop key="com.atguigu.survey.exception.BagOrderNumException">guest/bag_adjustUI</prop>
+					<prop key="com.atguigu.survey.exception.AdminNoLoginException">manager/admin_loginUI</prop>
+					<prop key="com.atguigu.survey.exception.NoAdminExitsException">manager/admin_loginUI</prop>
+				</props>
+			</property>
+		</bean> -->
+		
+		<!-- 自定义拦截器 -->
+		<!-- <mvc:interceptors>
+			<bean class="com.atguigu.survey.interceptors.RequestBinderInterceptor" />
+			<bean class="com.atguigu.survey.interceptors.ResourceInterceptor" />
+			<bean class="com.atguigu.survey.interceptors.LoginInterceptor" />
+		</mvc:interceptors> -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+
