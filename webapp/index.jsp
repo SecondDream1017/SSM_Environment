@@ -10,11 +10,44 @@
 
 <script type="text/javascript">
 
+function clickBut(){
+	//alert(123);
+	var ee = $("#textareaId").val();
+	alert(ee);
+	var str = textareaTo(ee);
+	alert(str);
+	/* $.ajax({
+		type:"POST",
+		url:"${pageContext.request.contextPath}/environment/guest/toErJiUI",
+		data:{
+			"name":"gaoming"
+		},
+		success:function(data){
+			alert(data.age);
+		},
+		dataType:"json"
+	}); */
+	
+}
+
+/**
+* @funciton 转换textarea存入数据库的回车换行和空格  textarea ---  数据库,用val取数据，置换'\n'
+*/
+function textareaTo(str){
+    var reg=new RegExp("\n","g");
+    var regSpace=new RegExp(" ","g");
+    
+    str = str.replace(reg,"<br>");
+    str = str.replace(regSpace,"&nbsp;");
+    
+    return str;
+}
+
 $(document).ready(function(){
 	//验证jQuery引入成功
 	//alert("111");
 	
-	$("#divId").load("${pageContext.request.contextPath}/environment/guest/toErJiUI");
+	//$("#divId").load("${pageContext.request.contextPath}/environment/guest/toErJiUI");
 	
 }) 
 
@@ -27,12 +60,18 @@ $(document).ready(function(){
 <body>
 	哈哈哈
 	<a href="environment/guest/toErJiUI" >跳转到二级联动页面</a><br>
-	<form action="environment/guest/formTest" method="post">
-		
+	<a href="environment/guest/toModelAndViewUI" >跳转到ModelAndView页面</a><br>
+	<a href="environment/guest/toEclassStudentUI" >跳转到学生页面</a><br>
+	<a href="environment/guest/toEclassStudentUI2" >跳转到学生页面2</a><br>
+	<a href="" download="2.jpg">2.jpg</a>
+	
+	<form action="/environment/guest/saveCity" method="post">
+		<textarea rows="5" cols="5" name="name" id="textareaId"></textarea>
 		<input type="submit" value="提交">
 	</form>
 	<div id="divId">
-	
+		<button id="but" onclick="clickBut()">ttt</button>
 	</div>
+	========================================================
 </body>
 </html>

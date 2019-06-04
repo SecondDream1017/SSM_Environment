@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.environment.mapper.CityMapper">
+	
+	<select id="getAllCityList" resultType="com.atguigu.environment.model.City">
+		select id,name from city
+	</select>
+	
+	<insert id="saveCity" parameterType="com.atguigu.environment.model.City">
+		INSERT INTO city (name) VALUES (#{name})
+	</insert>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
